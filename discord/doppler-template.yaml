@@ -1,0 +1,32 @@
+projects:
+  - name: 'yume-discord'
+    description: 'Project doppler config for Yume'
+    environments:
+      - name: 'Development'
+        slug: 'dev'
+        configs:
+          - slug: 'dev'
+      - name: 'Production'
+        slug: 'prd'
+        configs:
+          - slug: 'prd'
+    secrets:
+      dev:
+        NODE_ENV: 'development'
+        JIKAN_API_ENDPOINT: 'https://api.jikan.moe/v4'
+        OPENAI_API_KEY: 'XXX'
+        DISCORD_TOKEN: 'XXX'
+        HOST: 'http://localhost'
+        PORT: '8080'
+        CLIENT_ID: 'XXX'
+        COMMAND_TEST_GUILD_IDS: 'XXX, XXX'
+      prd:
+        NODE_ENV: 'development'
+        JIKAN_API_ENDPOINT: 'https://api.jikan.moe/v4'
+        OPENAI_API_KEY: 'XXX'
+        DISCORD_TOKEN: 'XXX'
+        HOST: 'http://localhost'
+        PORT: '8080'
+        CLIENT_ID: 'XXX'
+        KARUTA_BOT_ID: 'XXX'
+        COMMAND_TEST_GUILD_IDS: 'XXX, XXX'
