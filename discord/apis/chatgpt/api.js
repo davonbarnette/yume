@@ -25,4 +25,18 @@ export class ChatGPTApi {
             return {error: e.message};
         }
     }
+
+    static async createImage(text) {
+        try {
+            const res = await openai.createImage({
+                prompt: text,
+                n: 1,
+                size: "1024x1024",
+            });
+            return res.data;
+        } catch (e) {
+            logger.error('OpenAI: Could not create completion', e.message)
+            return {error: e.message};
+        }
+    }
 }
