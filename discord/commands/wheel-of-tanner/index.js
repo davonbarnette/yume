@@ -17,7 +17,7 @@ params.getSlashCommand = async () => {
         .addStringOption(option =>
             option
                 .setRequired(true)
-                .setName("text")
+                .setName("choices")
                 .setDescription("Type your options, comma separated")
         )
 }

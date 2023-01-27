@@ -13,7 +13,7 @@ export class WoTOptionsHandler extends OptionsHandler {
     setOptions(options) {
         options.forEach(option => {
             if (option.name === "choices") {
-                this.choices = option.value.split(',');
+                this.choices = option.value.trim().split(',');
             }
         })
     }
