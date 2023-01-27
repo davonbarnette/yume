@@ -13,6 +13,7 @@ export const DISCORD_SETTINGS = {
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildMessageReactions,
     ]
+    
 }
 export const VALORANT_API_ENDPOINT = process.env.VALORANT_API_ENDPOINT
 export const JIKAN_API_ENDPOINT = process.env.JIKAN_API_ENDPOINT
