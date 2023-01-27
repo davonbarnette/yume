@@ -8,8 +8,6 @@ export default async (parentInteraction, client, discordUserId) => {
     let imageGptOptionsHandler = new ImageGPTOptionsHandler(options, discordUserId)
     let completion = await ChatGPTApi.createImage(imageGptOptionsHandler.text)
 
-    completion.data[0].url
-
     if (!completion.error) {
         let helpEmbed = new EmbedBuilder()
             .setTitle(imageGptOptionsHandler.text)
