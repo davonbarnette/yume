@@ -12,6 +12,7 @@ export default async (parentInteraction, client, discordUserId) => {
     let decision = BaseUtils.pickRandomElement(wotOptionsHandler.choices)
     let wheelEmbed = new EmbedBuilder()
         .setTitle("The Wheel of Tanner")
+        .setDescription(wotOptionsHandler.choices.join(", "))
         .setColor(0x7289DA)
         .setImage("attachment://wheeloftanner.gif")
 
