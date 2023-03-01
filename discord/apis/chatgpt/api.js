@@ -26,6 +26,22 @@ export class ChatGPTApi {
         }
     }
 
+    static async createChatCompletion(text) {
+        try {
+            let res = await openai.createChatCompletion({
+                model: "gpt-3.5-turbo",
+                messages: [{role: "user", content: text}],
+                temperature: 0.9,
+                frequency_penalty: 0.5,
+                presence_penalty: 0,
+            });
+            return res.data;
+        } catch (e) {
+            logger.error('OpenAI: Could not create completion', e.message)
+            return {error: e.message};
+        }
+    }
+
     static async createImage(text) {
         try {
             const res = await openai.createImage({

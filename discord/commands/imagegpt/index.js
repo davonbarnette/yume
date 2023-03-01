@@ -7,7 +7,7 @@ let params = {
     aliases: ["igpt"],
     description: "Uses image generation for ChatGPT",
     execute,
-    disabled: false,
+    disabled: true,
 }
 
 params.getSlashCommand = async () => {
