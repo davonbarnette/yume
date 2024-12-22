@@ -90,4 +90,5 @@ const rest = new REST({version: '10'}).setToken(DISCORD_TOKEN);
         default:
             break
     }
+    
 })();
