@@ -34,6 +34,7 @@ jobs:
         run: |
           # Build a docker container and push it to DO 
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker images
           echo "Pushing image to DO... $REGISTRY/$REPOSITORY:$IMAGE_TAG"
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$REGISTRY/$REPOSITORY:$IMAGE_TAG"
