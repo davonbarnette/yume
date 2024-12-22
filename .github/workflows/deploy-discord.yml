@@ -28,8 +28,8 @@ jobs:
         id: build-discord-bot
         working-directory: ./discord
         env:
-          REGISTRY: registry.digitalocean.com
-          REPOSITORY: yume
+          REGISTRY: registry.digitalocean.com/yume
+          REPOSITORY: discord
           IMAGE_TAG: latest
         run: |
           # Build a docker container and push it to DO 
