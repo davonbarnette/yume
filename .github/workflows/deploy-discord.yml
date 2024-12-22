@@ -30,7 +30,7 @@ jobs:
         working-directory: ./discord
         env:
           REGISTRY: davonbarnette
-          REPOSITORY: discord
+          REPOSITORY: yume
           IMAGE_TAG: latest
         run: |
           # Build a docker container and push it to DO 
