@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y apt-transport-https ca-certificates cur
     apt-get update && \
     apt-get -y install doppler
 
-WORKDIR /usr/app/strapi
+WORKDIR /usr/app
 
 COPY ./package.json ./
 

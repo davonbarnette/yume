@@ -1,5 +1,5 @@
 import logger from '#logger'
-import {JikanAPIAxios} from './axios'
+import {JikanAPIAxios} from './axios.js'
 
 export class JikanAPI {
     static async getSchedules(day){

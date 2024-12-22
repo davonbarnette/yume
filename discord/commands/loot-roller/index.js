@@ -1,5 +1,5 @@
 import {Command} from "#utils"
-import execute from './execute';
+import execute from './execute.js';
 import {SlashCommandBuilder} from "discord.js";
 
 let params = {

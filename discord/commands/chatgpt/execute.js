@@ -1,6 +1,6 @@
 import {EmbedBuilder} from "discord.js"
 import {ChatGPTApi} from "#apis/chatgpt"
-import {ChatGPTOptionsHandler} from "./options.handler"
+import {ChatGPTOptionsHandler} from "./options.handler.js"
 
 export default async (parentInteraction, client, discordUserId) => {
     await parentInteraction.deferReply()

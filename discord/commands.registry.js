@@ -6,7 +6,6 @@ const commandFiles = fs.readdirSync('./commands').filter(file => !file.endsWith(
 
 for (const folder of commandFiles) {
 	const {default: command} = await import(`./commands/${folder}/index.js`);
-	// const command = Object.assign(commandImport);
 	commandsRegistry.set(command.name, command);
 }
 

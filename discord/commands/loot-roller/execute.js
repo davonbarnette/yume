@@ -1,6 +1,6 @@
 import {EmbedBuilder, codeBlock, bold, italic} from "discord.js"
 import {BaseUtils} from "#utils"
-import {lrOptionsHandlerClass} from "./options.handler"
+import {lrOptionsHandlerClass} from "./options.handler.js"
 import path, {dirname} from 'path';
 import {fileURLToPath} from 'url';
 import {table} from 'table'

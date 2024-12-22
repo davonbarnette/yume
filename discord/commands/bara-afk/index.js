@@ -3,9 +3,9 @@ import execute from './execute.js';
 import {SlashCommandBuilder} from "discord.js";
 
 let params = {
-    name: "wheeloftanner",
-    aliases: ["wheel"],
-    description: "Spin the wheel, let fate decide",
+    name: "bara_afk",
+    aliases: ["bafk"],
+    description: "Set a reminder for your Capybara Go! AFK rewards.",
     execute,
     disabled: false,
 }
@@ -14,12 +14,9 @@ params.getSlashCommand = async () => {
     return new SlashCommandBuilder()
         .setName(params.name)
         .setDescription(params.description)
-        .addStringOption(option =>
-            option
-                .setRequired(true)
-                .setName("choices")
-                .setDescription("Type your options, comma separated")
-        )
 }
 
 export default new Command(params);
+
+
+

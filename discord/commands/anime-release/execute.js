@@ -1,11 +1,13 @@
 import {JikanAPI} from "#apis/jikan"
-import {AnimeReleaseOptionsHandler} from "./options.handler"
+import {AnimeReleaseOptionsHandler} from "./options.handler.js"
 import {EmbedBuilder} from "discord.js"
 
 export default async (parentInteraction, client, discordUserId) => {
     let options = parentInteraction.options._hoistedOptions
     let arReleaseHandler = new AnimeReleaseOptionsHandler(options, discordUserId)
     let animeReleased = await JikanAPI.getSchedules(arReleaseHandler.day)
+    JikanAPI.getSchedules()
+    // hello get ur shit ki9cked u fucking noob
     let helpEmbed = new EmbedBuilder()
         .setTitle(`Searching for animes released on ${arReleaseHandler.day}`)
         .setDescription("Type !help for commands.")

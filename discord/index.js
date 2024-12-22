@@ -1,6 +1,6 @@
 import express from 'express'
 import logger from '#logger'
-import {DiscordConsumer} from "#root/consumer"
+import {DiscordConsumer} from "#root/consumer.js"
 import commandsRegistry from "#commands-registry"
 import {APP_SETTINGS, DISCORD_SETTINGS} from "#settings";
 

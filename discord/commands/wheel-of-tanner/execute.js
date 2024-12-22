@@ -1,6 +1,6 @@
 import {EmbedBuilder} from "discord.js"
 import {BaseUtils} from "#utils"
-import {WoTOptionsHandler} from "./options.handler"
+import {WoTOptionsHandler} from "./options.handler.js"
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
