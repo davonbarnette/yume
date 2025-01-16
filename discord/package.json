@@ -20,7 +20,7 @@
     "url": "https://github.com/davonbarnette/yume/issues"
   },
   "engines" : {
-    "node" : "22.12"
+    "node" : "22.12.x"
   },
   "imports": {
     "#root/*": "./*",
