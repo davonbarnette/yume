@@ -1,5 +1,6 @@
-import {strapiSDK} from '@strapi/sdk-js'
+import * as pkg from '@strapi/sdk-js'
 import Logger from "#logger"
+const {strapiSDK} = pkg
 
 const sdk = strapiSDK({
     baseURL: `${process.env.GENSTRAPI_API_ENDPOINT}/api`,
