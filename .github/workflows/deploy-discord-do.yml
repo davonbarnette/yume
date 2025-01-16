@@ -1,35 +1,27 @@
 name: Build, Push and Deploy a Docker Image
 
 on:
- push:
-   branches: [main]
+  push:
+    branches: [ main ]
 
 permissions:
   contents: read
   packages: write
 
 jobs:
- build-push-deploy-image:
-   runs-on: ubuntu-latest
-   steps:
-     - name: Checkout repository
-       uses: actions/checkout@v4
-     - name: Log in to the Container registry
-       uses: docker/login-action@v3.3.0
-       with:
-         registry: ghcr.io
-         username: ${{ github.actor }}
-         password: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-     - name: Build and push Docker image
-       id: push
-       uses: docker/build-push-action@v6.5.0
-       with:
-         context: .
-         push: true
-         tags: ghcr.io/hitagi/yume:latest
-     - name: Deploy the app
-       uses: digitalocean/app_action/deploy@v2
-       env:
-         SAMPLE_DIGEST: ${{ steps.push.outputs.digest }}
-       with:
-         token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+  build-push-deploy-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Log in to DO Container Registry
+        run: doctl registry login --expiry-seconds 600
+      - name: Build image
+        working-directory: ./discord
+        run: docker build -t registry.digitalocean.com/hitagi/yume:latest .
+      - name: Push image to DO Container Registry
+        run: docker push registry.digitalocean.com/hitagi/yume:latest
