@@ -51,7 +51,7 @@ params.getSlashCommand = async () => {
         .addSubcommand(subcommand =>
             subcommand
                 .setName(Subcommands.sar.key)
-                .setDescription("Start your personal AFK Rewards reminder. Must use [spat] before using this command.")
+                .setDescription("Start your personal AFK Rewards reminder. Must use /rem spar before using this command.")
         )
         .addSubcommand(subcommand =>
             subcommand
