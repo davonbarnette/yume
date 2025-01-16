@@ -12,10 +12,6 @@ export async function listReminders(params) {
     let reminders = await genstrapi.reminders.findMany({
         filters: {
             discordUser: strapiUser.id,
-            reminderSent: false,
-            end: {
-                $gt: dayjs().toISOString()
-            }
         },
         sort: "id:asc"
     })

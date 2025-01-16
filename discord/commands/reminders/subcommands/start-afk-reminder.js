@@ -10,7 +10,11 @@ export async function startAfkReminder(params) {
         optionsHandler, strapiUser, strapiGuild
     } = params
 
-    if (strapiUser.afkReminderHours === undefined || strapiUser.afkReminderMinutes === undefined) {
+    function isNullOrUndefined(value){
+        return value === undefined || value === null
+    }
+
+    if (isNullOrUndefined(strapiUser.afkReminderHours) || isNullOrUndefined(strapiUser.afkReminderMinutes)) {
         let embed = getGeneralErrorEmbed()
             .setTitle(":hourglass: Start Capybara Go! AFK Rewards Reminder")
             .setDescription(`You must set your personal AFK timer before you can use this command. You can set your personal AFK timer by using ${inlineCode(`/rem spar`)}`)

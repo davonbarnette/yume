@@ -11,6 +11,21 @@ export async function startReminder(params) {
     } = params
     const {hours, minutes, message} = optionsHandler
 
+    let runningReminders = await genstrapi.reminders.findMany({
+        filters: {
+            discordUser: strapiUser.id,
+        },
+    })
+
+    if (!runningReminders || runningReminders.length >= 5) {
+        let embed = getGeneralErrorEmbed()
+            .setTitle(":hourglass: Start Reminder")
+            .setDescription("You may only have 5 reminders running at a time.")
+        return parentInteraction.editReply({
+            embeds: [embed]
+        })
+    }
+
     const start = dayjs()
     const end = start.add(hours, "hours").add(minutes, "minutes").set("second", 0)
     let reminder = await genstrapi.reminders.create({
