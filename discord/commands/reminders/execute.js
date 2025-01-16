@@ -24,10 +24,10 @@ export default async (parentInteraction, client, discordUserId) => {
         filters: {discordGuildId: parentOptions.guildId},
         populate: "*"
     })
-    if (_subcommand !== Subcommands.sdc) {
+    if (_subcommand !== Subcommands.sdc.key) {
         if (!strapiGuild) {
             let sdcEmbed = new EmbedBuilder()
-                .setTitle(":hourglass: Start Reminder")
+                .setTitle("Error")
                 .setDescription(`You must set a default channel before using any commands. Use ${inlineCode("/rem sdc")} first you siwwy dingus.`)
                 .setColor(Colors.Red)
             return parentInteraction.editReply({
