@@ -5,7 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "doppler run -- node ./index.js",
+    "start": "node ./index.js",
+    "develop": "doppler run -- node ./index.js",
     "commands": "doppler run -- node ./commands.deploy.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
