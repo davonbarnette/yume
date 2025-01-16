@@ -28,7 +28,6 @@ export async function sendReminders(client) {
         let cachedGuild = guildsCache.get(discordGuildId)
         let cachedChannel = channelsCache.get(defaultRemindersChannel.discordChannelId)
 
-
         if (!cachedGuild) {
             let guild = await client.guilds.fetch(discordGuildId)
             if (guild) {
