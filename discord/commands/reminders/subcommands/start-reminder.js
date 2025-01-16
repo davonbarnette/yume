@@ -17,10 +17,16 @@ export async function startReminder(params) {
         },
     })
 
+    let doraUrl = 'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHFyampvZms3M25oc3M5ZXhnZHZtcnRwc2ZldDA4eTVtY3VyaHptbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/THPTt9Bu80tgI/giphy.gif'
+
     if (!runningReminders || runningReminders.length >= 5) {
         let embed = getGeneralErrorEmbed()
             .setTitle(":hourglass: Start Reminder")
-            .setDescription("You may only have 5 reminders running at a time.")
+            .setAuthor({name: "Noob", iconURL: doraUrl})
+            .setThumbnail(doraUrl)
+            .setImage(doraUrl)
+            .setDescription("No")
+            .setFooter({text: "You may only have 5 reminders running at a time.", iconURL: doraUrl})
         return parentInteraction.editReply({
             embeds: [embed]
         })

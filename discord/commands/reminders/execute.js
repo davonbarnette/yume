@@ -1,7 +1,7 @@
 import {RemindersOptionsHandler} from "./options.handler.js"
 import {genstrapi} from "#apis/genstrapi"
 import {Subcommands} from "./subcommands/keys.js";
-import {channelMention, EmbedBuilder, Colors, bold, inlineCode} from "discord.js";
+import {EmbedBuilder, Colors, inlineCode} from "discord.js";
 
 
 export default async (parentInteraction, client, discordUserId) => {
@@ -21,9 +21,10 @@ export default async (parentInteraction, client, discordUserId) => {
     const execute = Subcommands[_subcommand].execute
 
     let strapiGuild = await genstrapi.servers.findFirst({
-        filters: {discordGuildId: parentOptions.guildId},
+        filters: {discordGuildId: parentInteraction.guildId},
         populate: "*"
     })
+
     if (_subcommand !== Subcommands.sdc.key) {
         if (!strapiGuild) {
             let sdcEmbed = new EmbedBuilder()
