@@ -19,6 +19,9 @@
   "bugs": {
     "url": "https://github.com/davonbarnette/yume/issues"
   },
+  "engines" : {
+    "node" : "22.12.0"
+  },
   "imports": {
     "#root/*": "./*",
     "#logger": "./logger/index.js",
