@@ -1,6 +1,6 @@
 import {genstrapi} from "#root/apis/index.js";
-import {channelMention, Colors, EmbedBuilder} from "discord.js";
-import {getGeneralEmbed} from "#utils";
+import {channelMention, Colors, PermissionsBitField} from "discord.js";
+import {getGeneralEmbed, getGeneralErrorEmbed} from "#utils";
 
 export async function setDefaultChannel(params) {
     const {
@@ -9,6 +9,15 @@ export async function setDefaultChannel(params) {
         // strapiUser, discordUserId,
     } = params
     const {guildId} = parentInteraction
+    let hasPerms = parentInteraction.member.permissions.has(PermissionsBitField.Flags.ManageChannels)
+    if (!hasPerms) {
+        let embed = getGeneralErrorEmbed()
+            .setTitle(":hourglass: Set Default Reminders Channel")
+            .setDescription(`You don't have the necessary permissions (Manage Channel) to set the default channel. Get wekt.`)
+        return parentInteraction.editReply({
+            embeds: [embed]
+        })
+    }
 
     let strapiGuild = await genstrapi.servers.findFirst({
         filters: {discordGuildId: guildId},
@@ -38,7 +47,7 @@ export async function setDefaultChannel(params) {
         })
     }
 
-    if (!strapiChannel){
+    if (!strapiChannel) {
         return parentInteraction.editReply("Ewwow uwu")
     }
 
@@ -48,7 +57,7 @@ export async function setDefaultChannel(params) {
                 connect: [strapiChannel.documentId]
             }
         })
-        if (!updatedGuild){
+        if (!updatedGuild) {
             return parentInteraction.editReply("Ewwow uwu")
         }
     } else {
