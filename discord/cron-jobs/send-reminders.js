@@ -46,7 +46,7 @@ export async function sendReminders(client) {
 
         if (cachedGuild && cachedChannel && discordUser) {
             await genstrapi.reminders.delete(reminder.documentId)
-            await cachedChannel.send(`${message ? `${bold(message)}` : ""} | Hewwo, ${userMention(discordUser.discordUserId)}, the time is now. Here's your reminder. This reminder has expired and is now deletused.`)
+            await cachedChannel.send(`${message ? `${bold(message)} | ` : ""}Hewwo, ${userMention(discordUser.discordUserId)}, the time is now. Here's your reminder. This reminder has expired and is now deletused.`)
         }
     }
     Logger.debug("Cron job sendReminders has finished")
