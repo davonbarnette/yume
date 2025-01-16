@@ -1,3 +1,4 @@
-export * from './chatgpt'
-export * from './jikan'
-export * from './valorant'
+export * from './chatgpt/index.js'
+export * from './jikan/index.js'
+export * from './valorant/index.js'
+export * from './genstrapi/index.js'

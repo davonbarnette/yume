@@ -2,6 +2,7 @@ import {DISCORD_SETTINGS} from "#settings"
 import {Client, Events} from "discord.js"
 const {DISCORD_TOKEN} = process.env
 import logger from '#logger'
+import {initDiscordCron} from "#root/discord-cron.js";
 
 export class DiscordConsumer {
 
@@ -21,6 +22,7 @@ export class DiscordConsumer {
     onReady = () => {
         logger.success(`${this.client.user.username} ready!`)
         this.client.user.setActivity(`/help`)
+        initDiscordCron(this.client)
     }
 
     onWarn = (info) => {
@@ -39,5 +41,4 @@ export class DiscordConsumer {
             }
         }
     }
-
 }

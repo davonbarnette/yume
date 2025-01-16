@@ -1,6 +1,6 @@
 import {REST, Routes} from "discord.js"
 import {DISCORD_SETTINGS} from "#settings"
-import commandsRegistry from "#commands-registry"
+import commandsRegistry, {getCommandsRegistry} from "#commands-registry"
 import logger from "#logger";
 
 const {
@@ -27,7 +27,7 @@ const rest = new REST({version: '10'}).setToken(DISCORD_TOKEN);
     logger.debug(`Running deploy --environment=${env} --action=${action}`)
 
     let commands = [];
-    let values = [...commandsRegistry.values()];
+    let values = await getCommandsRegistry();
     const commandNames = []
     for (let i = 0; i < values.length; i++) {
         const command = values[i];

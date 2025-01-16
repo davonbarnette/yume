@@ -4,6 +4,19 @@ export class BaseUtils {
         return array[randomIndex]
     }
 
+    static stringToMaxSize(string, maxSize) {
+        let curString = string;
+        if (string.length < maxSize) {
+            let diff = maxSize - string.length;
+            for (let i = 0; i < diff; i++) {
+                curString += " ";
+            }
+        } else {
+            curString = curString.slice(0, maxSize);
+        }
+        return curString;
+    }
+
     static getRandom(arr, n) {
         let result = new Array(n),
             len = arr.length,
