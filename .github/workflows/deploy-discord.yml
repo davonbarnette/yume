@@ -25,7 +25,7 @@ jobs:
       #      - name: Log in to DO Container Registry
       #        run: doctl registry login --expiry-seconds 600
 
-      - name: Build, tag, and push the discord image to Amazon ECR
+      - name: Build, tag, and push the discord image to Docker Hub
         id: build-discord-bot
         working-directory: ./discord
         env:
