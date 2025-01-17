@@ -100,7 +100,10 @@ export const genstrapi = {
     servers: new GenstrapiCollection('discord-servers'),
     channels: new GenstrapiCollection('discord-channels'),
     reminders: new GenstrapiCollection('reminders'),
-    users: new GenstrapiCollection('discord-users')
+    users: new GenstrapiCollection('discord-users'),
+    equipments: new GenstrapiCollection('capy-equipments'),
+    resources: new GenstrapiCollection('capy-resources'),
+    equipmentRotations: new GenstrapiCollection('capy-up-rotations'),
 }
 
 async function strapiErrorWrapper(func, collectionName, funcName) {
