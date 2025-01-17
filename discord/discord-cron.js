@@ -8,7 +8,7 @@ export function initDiscordCron(client) {
     cron.schedule('* * * * *', () => {
         sendReminders(client)
     })
-    cron.schedule('* * * * *', () => {
+    cron.schedule('* 19 * * *', () => {
         cgoDayReset(client)
     }, {
         scheduled: true,
