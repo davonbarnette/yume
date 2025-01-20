@@ -3,10 +3,7 @@ import dayjs from "dayjs";
 import {bold, userMention} from "discord.js";
 import Logger from "#logger";
 
-let guildsCache = new Map()
-let channelsCache = new Map()
-
-export async function sendReminders(client) {
+export async function sendReminders(client, localCache) {
     Logger.debug("Starting sendReminders cron job")
     let reminders = await genstrapi.reminders.findMany({
         filters: {
@@ -25,23 +22,8 @@ export async function sendReminders(client) {
         const reminder = reminders[i];
         const {discordServer, discordUser, message} = reminder
         const {discordGuildId, defaultRemindersChannel} = discordServer
-        let cachedGuild = guildsCache.get(discordGuildId)
-        let cachedChannel = channelsCache.get(defaultRemindersChannel.discordChannelId)
-
-        if (!cachedGuild) {
-            let guild = await client.guilds.fetch(discordGuildId)
-            if (guild) {
-                guildsCache.set(discordGuildId, guild)
-                cachedGuild = guild
-            }
-        }
-        if (!cachedChannel) {
-            let channel = await client.channels.fetch(defaultRemindersChannel.discordChannelId)
-            if (channel) {
-                channelsCache.set(defaultRemindersChannel.discordChannelId, channel)
-                cachedChannel = channel
-            }
-        }
+        let cachedGuild = await localCache.guilds.getGuildById(discordGuildId)
+        let cachedChannel = await localCache.channels.getChannelById(defaultRemindersChannel.discordChannelId)
 
         if (cachedGuild && cachedChannel && discordUser) {
             await genstrapi.reminders.delete(reminder.documentId)

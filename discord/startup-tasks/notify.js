@@ -1,6 +1,6 @@
 import {userMention} from "discord.js";
 
-export async function notify(client) {
+export async function notify(client, localCache) {
     const {
         DEV_DISCORD_CHANNEL_ID,
         DEV_DISCORD_USER_ID,
@@ -9,7 +9,7 @@ export async function notify(client) {
 
     if (NODE_ENV === 'production') {
         if (DEV_DISCORD_CHANNEL_ID && DEV_DISCORD_USER_ID) {
-            let channel = await client.channels.fetch(DEV_DISCORD_CHANNEL_ID)
+            let channel = await localCache.channels.getChannelById(DEV_DISCORD_CHANNEL_ID)
             await channel.send(`${userMention(DEV_DISCORD_USER_ID)}, the production instance of yume has started.`)
         }
     }

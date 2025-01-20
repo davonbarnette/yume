@@ -20,6 +20,17 @@ params.getSlashCommand = async () => {
                 .setName(Subcommands.equipment.key)
                 .setDescription("Get the current UP Equipment Rotation")
         )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName(Subcommands.growth.key)
+                .setDescription("Get Growth Event rotation information")
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName(Subcommands.events.key)
+                .setDescription("Get all Events")
+        )
+
 }
 
 export default new Command(params);

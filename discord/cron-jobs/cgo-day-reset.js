@@ -1,31 +1,18 @@
-import {genstrapi} from "#root/apis/index.js";
-import dayjs from "dayjs";
 import Logger from "#logger";
+import {rotateUpEquipment} from "#root/cron-jobs/tasks/rotate-up-equipment.js";
+import {rotateGrowthEvents} from "#root/cron-jobs/tasks/rotate-growth-events.js";
+import {rotateSubgrowthEvents} from "#root/cron-jobs/tasks/rotate-subgrowth-events.js";
+import {rotateCapyGacha} from "#root/cron-jobs/tasks/rotate-capy-gacha.js";
+import {sendCgoResetMessage} from "#root/cron-jobs/tasks/send-cgo-reset-message.js";
 
-export async function cgoDayReset(client) {
+export async function cgoDayReset(client, localCache) {
     Logger.debug("Starting cgoDayReset cron job")
-    let rotations = await genstrapi.equipmentRotations.findMany({
-        sort: "end:asc",
-    })
-    if (rotations && rotations.length !== 0) {
-        let currentRotation = rotations[0]
-        let lastRotation = rotations[rotations.length - 1]
+    await rotateUpEquipment()
+    await rotateGrowthEvents()
 
-        const {end} = currentRotation
-        const curDay = dayjs().set('second', 59)
-        const curRotationEnd = dayjs(end)
-        let curRotationHasEnded = curRotationEnd.isBefore(curDay)
-
-        if (curRotationHasEnded) {
-            const lastRotationEnd = dayjs(lastRotation.end)
-            const newEnd = lastRotationEnd.add(3, 'day')
-
-            await genstrapi.equipmentRotations.update(currentRotation.documentId, {
-                start: lastRotationEnd.toISOString(),
-                end: newEnd.toISOString()
-            })
-
-        }
-    }
+    // Must rotate growth events before rotating subgrowth events
+    await rotateSubgrowthEvents()
+    await rotateCapyGacha()
+    await sendCgoResetMessage(client, localCache)
     Logger.debug("Finished cgoDayReset cron job")
 }

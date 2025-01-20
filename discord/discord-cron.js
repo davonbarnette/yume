@@ -4,12 +4,12 @@ import {cgoDayReset} from "#root/cron-jobs/cgo-day-reset.js";
 import Logger from "#logger";
 
 
-export function initDiscordCron(client) {
+export function initDiscordCron(client, localCache) {
     cron.schedule('* * * * *', () => {
-        sendReminders(client)
+        sendReminders(client, localCache)
     })
     cron.schedule('* 19 * * *', () => {
-        cgoDayReset(client)
+        cgoDayReset(client, localCache)
     }, {
         scheduled: true,
         timezone: "America/New_York"

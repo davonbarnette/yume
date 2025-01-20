@@ -4,7 +4,7 @@ const {DISCORD_TOKEN} = process.env
 import logger from '#logger'
 import {initDiscordCron} from "#root/discord-cron.js";
 import {notify} from "#root/startup-tasks/notify.js";
-
+import {LocalCache} from "#root/cache.js";
 export class DiscordConsumer {
 
     constructor(commandsRegistry) {
@@ -23,8 +23,9 @@ export class DiscordConsumer {
     onReady = () => {
         logger.success(`${this.client.user.username} ready!`)
         this.client.user.setActivity(`/help`)
-        notify(this.client)
-        initDiscordCron(this.client)
+        this._localCache = new LocalCache(this.client)
+        notify(this.client, this._localCache)
+        initDiscordCron(this.client, this._localCache)
     }
 
     onWarn = (info) => {

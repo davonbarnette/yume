@@ -104,6 +104,7 @@ export const genstrapi = {
     equipments: new GenstrapiCollection('capy-equipments'),
     resources: new GenstrapiCollection('capy-resources'),
     equipmentRotations: new GenstrapiCollection('capy-up-rotations'),
+    events: new GenstrapiCollection('capy-events'),
 }
 
 async function strapiErrorWrapper(func, collectionName, funcName) {

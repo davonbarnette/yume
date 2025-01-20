@@ -31,11 +31,11 @@ export async function getEquipmentRotation(params) {
 
     let rotationsDescription = "Capybara Go! UP Equipment Rotation:\n\n"
     rotations.forEach((rotation, i) => {
-        let text = `${bold(`:blue_square: \u1CBCRotation starts ⟶`)} ${time(new Date(rotation.start), TimestampStyles.LongDate)}`
+        let text = `${bold(`:blue_square: Rotation starts ⟶`)} ${time(new Date(rotation.start), TimestampStyles.LongDate)}`
         if (i === 0){
-            text = `${bold(`:green_square: \u1CBCCurrent rotation`)}`
+            text = `${bold(`:green_square: Current rotation`)}`
         } else if (i === 1){
-            text = `${bold(`:orange_square: \u1CBCNext rotation starts ⟶`)} ${time(new Date(rotation.start), TimestampStyles.RelativeTime)}`
+            text = `${bold(`:orange_square: Next rotation starts ⟶`)} ${time(new Date(rotation.start), TimestampStyles.RelativeTime)}`
         }
         let rotationDesc = `${text}\n\n`
         rotation.capyEquipments.forEach((equipment, i) => {
@@ -46,7 +46,7 @@ export async function getEquipmentRotation(params) {
             }
             let equipmentEmojiName = equipment.name.replace(/ /g,"_").replace(/[^a-zA-Z0-9_]/g, '')
             const curEmoji = client.emojis.cache.find(emoji => emoji.name === equipmentEmojiName)
-            rotationDesc += `${curEmoji ? `${curEmoji} \u1CBC—\u1CBC `: ""}${equipmentName} ${isLast ? "" : "\n"}`
+            rotationDesc += `${curEmoji ? `${curEmoji} — `: ""}${equipmentName} ${isLast ? "" : "\n"}`
         })
         rotationsDescription += `${rotationDesc}\n\n\n`
     })
