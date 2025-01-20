@@ -22,7 +22,7 @@ export async function sendReminders(client, localCache) {
         const reminder = reminders[i];
         const {discordServer, discordUser, message} = reminder
         const {discordGuildId, defaultRemindersChannel} = discordServer
-        let cachedGuild = await localCache.guilds.getGuildById(discordGuildId)
+        let cachedGuild = await localCache.getGuildById(discordGuildId)
         let cachedChannel = await localCache.getChannelById(defaultRemindersChannel.discordChannelId)
 
         if (cachedGuild && cachedChannel && discordUser) {
