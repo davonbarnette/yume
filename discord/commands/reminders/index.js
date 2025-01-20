@@ -63,7 +63,7 @@ params.getSlashCommand = async () => {
                         .setDescription("Hours")
                         .setRequired(true)
                         .setMinValue(0)
-                        .setMaxValue(24)
+                        .setMaxValue(240)
                 )
                 .addNumberOption(option =>
                     option
