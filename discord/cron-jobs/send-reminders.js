@@ -23,7 +23,7 @@ export async function sendReminders(client, localCache) {
         const {discordServer, discordUser, message} = reminder
         const {discordGuildId, defaultRemindersChannel} = discordServer
         let cachedGuild = await localCache.guilds.getGuildById(discordGuildId)
-        let cachedChannel = await localCache.channels.getChannelById(defaultRemindersChannel.discordChannelId)
+        let cachedChannel = await localCache.getChannelById(defaultRemindersChannel.discordChannelId)
 
         if (cachedGuild && cachedChannel && discordUser) {
             await genstrapi.reminders.delete(reminder.documentId)
