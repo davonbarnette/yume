@@ -49,10 +49,10 @@ export async function getGrowthRotation(params) {
             eventsDescription += italic("No extra growth events")
         } else {
             subgrowthEvents.forEach(sge => {
-                const {numDaysAfterGrowthEvent, eventLengthInDays, name} = sge
+                const {name, start: sgeStart, end:sgeEnd} = sge
                 let subgrowthEventDesc = `- ${name}`
-                let startDay = dayjs(start).add(numDaysAfterGrowthEvent, "days")
-                let endDay = startDay.add(eventLengthInDays, "days")
+                let startDay = dayjs(sgeStart)
+                let endDay = dayjs(sgeEnd)
                 if (dayjs().isAfter(startDay)) {
                     subgrowthEventDesc += ` — Ends ${time(endDay.toDate())}`
                 } else {
