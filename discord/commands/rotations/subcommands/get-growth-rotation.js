@@ -29,6 +29,8 @@ export async function getGrowthRotation(params) {
         })
     }
 
+    console.log('growthEvents', growthEvents)
+
     let eventsDescription = `Capybara Go! Events consist of ${growthEvents.length} main growth events. Each main growth event has extra growth events that usually start 2 days after the main growth event has started.\n\n`
     growthEvents.forEach((event, i) => {
         const {start, capyResource, numRounds, resourcesNeededPerRound, name, subgrowthEvents} = event
