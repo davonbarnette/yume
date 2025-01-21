@@ -36,50 +36,30 @@ export async function getEvents(params) {
     const currentEvents = []
 
     events.forEach(event => {
-        const {start, type, growthEvent, numDaysAfterGrowthEvent} = event
+        const {start} = event
         let curDay = dayjs()
+        let startDay = dayjs(start)
 
-        if (type === CAPY_EVENT_TYPES.SUBGROWTH) {
-            let subgrowthStartDay = dayjs(growthEvent.start).add(numDaysAfterGrowthEvent, 'days')
-            if (curDay.isAfter(subgrowthStartDay)) {
-                currentEvents.push(event)
-            } else {
-                upcomingEvents.push(event)
-            }
+        if (curDay.isAfter(startDay)) {
+            currentEvents.push(event)
         } else {
-            let startDay = dayjs(start)
-
-            if (curDay.isAfter(startDay)) {
-                currentEvents.push(event)
-            } else {
-                upcomingEvents.push(event)
-            }
+            upcomingEvents.push(event)
         }
     })
 
     let eventsDescription = ``
     eventsDescription += `${bold(":green_square: Current Events")}\n\n`
     currentEvents.forEach(curEvent => {
-        const {name, end, type, growthEvent, numDaysAfterGrowthEvent, eventLengthInDays} = curEvent
-        let endDay
-        if (type === CAPY_EVENT_TYPES.SUBGROWTH){
-            endDay = dayjs(growthEvent.start).add(numDaysAfterGrowthEvent + eventLengthInDays, 'days')
-        } else {
-            endDay = dayjs(end)
-        }
+        const {name, end} = curEvent
+        let endDay = dayjs(end)
         let text = `- ${name} Event ⟶ ends ${time(endDay.toDate(), TimestampStyles.RelativeTime)}\n`
         eventsDescription += text
     })
 
     eventsDescription += `\n${bold(":orange_square: Upcoming Events")}\n\n`
     upcomingEvents.forEach(curEvent => {
-        const {name, start, growthEvent, type, numDaysAfterGrowthEvent} = curEvent
-        let startDay
-        if (type === CAPY_EVENT_TYPES.SUBGROWTH){
-            startDay = dayjs(growthEvent.start).add(numDaysAfterGrowthEvent, 'days')
-        } else {
-            startDay = dayjs(start)
-        }
+        const {name, start} = curEvent
+        let startDay = dayjs(start)
         let text = `- ${time(startDay.toDate(), TimestampStyles.LongDate)} ⟶ ${name} Event\n`
         eventsDescription += text
     })
