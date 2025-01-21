@@ -39,7 +39,7 @@ export async function getGrowthRotation(params) {
             text = `${bold(`:orange_square: Next: ${name} Event starts ⟶`)} ${time(new Date(start), TimestampStyles.RelativeTime)}`
         }
         const resourceEmojiName = capyResource.name.replace(/ /g, "_").replace(/[^a-zA-Z0-9_]/g, '')
-        const curEmoji = client.emojis.cache.find(emoji => emoji.name === resourceEmojiName)
+        const curEmoji = client.emojis.cache.find(emoji => emoji?.name === resourceEmojiName)
         const fullResource = curEmoji ? `${curEmoji} ${bold(capyResource.name)}` : bold(capyResource.name)
         let eventsDesc = `${text}\n* ${bold(BaseUtils.numberWithCommas(resourcesNeededPerRound))} ${fullResource} needed per round for ${bold(`${numRounds} rounds`)}\n* ${bold(BaseUtils.numberWithCommas(numRounds * resourcesNeededPerRound))} ${fullResource} to complete the entire event`
 
