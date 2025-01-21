@@ -14,21 +14,18 @@ export async function rotateSubgrowthEvents() {
     })
 
     if (subgrowthEvents && subgrowthEvents.length !== 0) {
-
         for (let i = 0; i < subgrowthEvents.length; i++) {
-            const {end, growthEvent, numDaysAfterGrowthEvent, eventLengthInDays, documentId} = subgrowthEvents[i]
+            const {end, start, documentId} = subgrowthEvents[i]
             const curDay = dayjs().set('second', 59)
             const curEventEnd = dayjs(end)
-            let curEventHasEnded = curEventEnd.isBefore(curDay)
+            let curEventHasEnded = curDay.isAfter(curEventEnd)
             if (curEventHasEnded) {
-                if (growthEvent) {
-                    const sgeStartDay = dayjs(growthEvent.start).add(numDaysAfterGrowthEvent, 'days')
-                    const sgeEndDay = sgeStartDay.add(eventLengthInDays, 'days')
-                    await genstrapi.events.update(documentId, {
-                        start: sgeStartDay.toISOString(),
-                        end: sgeEndDay.toISOString()
-                    })
-                }
+                const sgeStartDay = dayjs(start).add(14, 'days')
+                const sgeEndDay = dayjs(end).add(14, 'days')
+                await genstrapi.events.update(documentId, {
+                    start: sgeStartDay.toISOString(),
+                    end: sgeEndDay.toISOString()
+                })
             }
         }
     }
