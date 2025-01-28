@@ -16,6 +16,11 @@ export async function sendReminders(client, localCache) {
         populate: ["discordServer.defaultRemindersChannel", "discordUser"]
     })
 
+    if (!reminders || reminders.length === 0){
+        Logger.debug(`No reminders to send.`)
+        return null
+    }
+
     Logger.debug(`Sending out ${reminders.length} reminders`)
 
     for (let i = 0; i < reminders.length; i++) {
