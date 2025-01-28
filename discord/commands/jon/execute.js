@@ -1,7 +1,7 @@
 export default async (parentInteraction, client, discordUserId) => {
     let messages = await parentInteraction.channel.messages.fetchPinned()
     let messagesToChoose = []
-    let jonId = "117420325511233542"
+    let jonId = "134961040436887552"
     messages.forEach(msg => {
         if (msg.author.id === jonId) {
             messagesToChoose.push(msg)
