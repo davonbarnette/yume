@@ -13,6 +13,7 @@ export class ChestGrowthManager {
     totalPointsSpent = 0
     initialPointsSpent = 0
     numTasksCompleted = 0
+    eventFinished = false
     curRewards = {darkMoonTickets: 0, divineHammers: 0, gems: 0, silverChests: 0}
     mileage = [
         "silver_20",
@@ -92,13 +93,12 @@ export class ChestGrowthManager {
 
     _init() {
         this.initialPointsSpent = this.totalPoints
-        while (this.hasChestsLeft) {
+        while (this.hasChestsLeft && !this.eventFinished) {
             this.spendPoints()
         }
     }
 
     get data(){
-        console.log('nimtask', this.numTasksCompleted)
         return {
             roundsCompleted: this.numRoundsCompleted,
             tasksCompleted: this.numTasksCompleted,
@@ -112,7 +112,8 @@ export class ChestGrowthManager {
             currentTask: Math.min((this.numTasksCompleted % this.numTasksPerRound) + 1, this.numTasksPerRound),
             pointsToCompleteCurrentTask: this.pointsRequiredPerTask - (this.totalPointsSpent % this.pointsRequiredPerTask),
             pointsToCompleteCurrentRound: this.pointsRequiredPerRound - (this.totalPointsSpent % (this.pointsRequiredPerRound)),
-            pointsToCompleteEvent: this.pointsRequiredForEvent - this.totalPointsSpent
+            pointsToCompleteEvent: this.pointsRequiredForEvent - this.totalPointsSpent,
+            eventFinished: this.eventFinished
         }
     }
 
@@ -160,6 +161,9 @@ export class ChestGrowthManager {
         let remainingFromPreviousRounds = this.totalPointsSpent % this.pointsRequiredPerTask
         let r = (curPointsFromChests + remainingFromPreviousRounds) % this.pointsRequiredPerTask
         this.totalPointsSpent += curPointsFromChests
+        if (this.totalPointsSpent >= this.pointsRequiredPerTask * this.maxTasksToComplete){
+            this.eventFinished = true
+        }
         let numTasksCompleted = Math.round((curPointsFromChests + remainingFromPreviousRounds - r) / this.pointsRequiredPerTask)
         if ((curPointsFromChests + remainingFromPreviousRounds) < this.pointsRequiredPerTask){
             numTasksCompleted = 0

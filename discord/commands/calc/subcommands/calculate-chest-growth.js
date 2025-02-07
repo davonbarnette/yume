@@ -13,6 +13,7 @@ export async function calculateChestGrowth(params) {
     const {
         roundsCompleted,
         tasksCompleted,
+        eventFinished,
         totalPointsInitial,
         rewards,
         extraChests,
@@ -42,15 +43,19 @@ export async function calculateChestGrowth(params) {
         desc += "\n\n"
         chestsDescription += desc
     })
-    let description = `
-    :dart: **Your Progress**
-    
+    let finishedDescription = `
+    You have enough to finish this event ⟶ ${BaseUtils.numberWithCommas(chestGrowthManager.maxTasksToComplete * chestGrowthManager.pointsRequiredPerTask)} points
+    `
+    let notFinishedDescription = `
     Projected: Round ${currentRound} ⟶ Task ${currentTask} ⟶ ${chestGrowthManager.pointsRequiredPerTask - pointsToCompleteCurrentTask} Points
     \`${BaseUtils.numberWithCommas(totalPoints)}\` total points accrued
     \`${BaseUtils.numberWithCommas(pointsToCompleteCurrentTask)}\` more points needed to advance to next task
     \`${BaseUtils.numberWithCommas(pointsToCompleteCurrentRound)}\` more points needed to advance to next round
     \`${BaseUtils.numberWithCommas(pointsToCompleteEvent)}\` more points needed to complete event
-    
+    `
+    let description = `
+    :dart: **Your Progress**
+    ${eventFinished ? finishedDescription : notFinishedDescription}
     :moneybag: **Total Rewards**
     
     ${rewardsDescription}
