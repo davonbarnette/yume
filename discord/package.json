@@ -19,8 +19,8 @@
   "bugs": {
     "url": "https://github.com/davonbarnette/yume/issues"
   },
-  "engines" : {
-    "node" : "22.x"
+  "engines": {
+    "node": "22.x"
   },
   "imports": {
     "#root/*": "./*",
@@ -35,6 +35,7 @@
   "dependencies": {
     "@strapi/sdk-js": "^1.0.0-beta.0",
     "axios": "^1.7.9",
+    "case": "^1.6.3",
     "chalk": "^5.2.0",
     "dayjs": "^1.11.13",
     "discord.js": "^14.17.3",
