@@ -37,7 +37,7 @@ export async function calculateChestGrowth(params) {
         let ePoints = chestGrowthManager.rewardsPerChest[chestType] * extraChest
         let desc = `${underline(`${Case.title(chestType)} Chests`)}\n* ${BaseUtils.numberWithCommas(initialChest)} starting — ${BaseUtils.numberWithCommas(icPoints)} points\n* ${BaseUtils.numberWithCommas(extraChest)} from mileage — ${BaseUtils.numberWithCommas(ePoints)} points`
         if (chestType === "silver"){
-            desc += `\n* ${chestGrowthManager.silverChestsFromRounds} from rewards — ${chestGrowthManager.silverChestsFromRounds * chestGrowthManager.rewardsPerChest[chestType]} points`
+            desc += `\n* ${BaseUtils.numberWithCommas(chestGrowthManager.silverChestsFromRounds)} from task rewards — ${BaseUtils.numberWithCommas(chestGrowthManager.silverChestsFromRounds * chestGrowthManager.rewardsPerChest[chestType])} points`
         }
         desc += "\n\n"
         chestsDescription += desc
@@ -47,8 +47,8 @@ export async function calculateChestGrowth(params) {
     
     Projected: Round ${currentRound} ⟶ Task ${currentTask} ⟶ ${chestGrowthManager.pointsRequiredPerTask - pointsToCompleteCurrentTask} Points
     \`${BaseUtils.numberWithCommas(totalPoints)}\` total points accrued
-    \`${BaseUtils.numberWithCommas(pointsToCompleteCurrentRound)}\` more points needed to advance to next round
     \`${BaseUtils.numberWithCommas(pointsToCompleteCurrentTask)}\` more points needed to advance to next task
+    \`${BaseUtils.numberWithCommas(pointsToCompleteCurrentRound)}\` more points needed to advance to next round
     \`${BaseUtils.numberWithCommas(pointsToCompleteEvent)}\` more points needed to complete event
     
     :moneybag: **Total Rewards**
@@ -57,12 +57,12 @@ export async function calculateChestGrowth(params) {
     :toolbox: **Chests**
     
     ${inlineCode(BaseUtils.numberWithCommas(totalPointsInitial))} points from current chests
-    ${inlineCode(BaseUtils.numberWithCommas(extraPoints))} points from mileage chests/rewards
+    ${inlineCode(BaseUtils.numberWithCommas(extraPoints))} points from mileage chests and task rewards
     
     ${chestsDescription}
     `
     let embed = getGeneralEmbed()
-        .setTitle(":abacus: Chest Growth Event Calculator")
+        .setTitle(":abacus: Chest Gwouf Ebent Weeeawds Cawuwuwcuwator")
         .setDescription(description)
     return parentInteraction.editReply({
         embeds: [embed]
