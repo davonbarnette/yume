@@ -98,6 +98,7 @@ export class ChestGrowthManager {
     }
 
     get data(){
+        console.log('nimtask', this.numTasksCompleted)
         return {
             roundsCompleted: this.numRoundsCompleted,
             tasksCompleted: this.numTasksCompleted,
@@ -155,14 +156,17 @@ export class ChestGrowthManager {
         }
         let curPointsFromChests = this.totalPoints
         let curMileagePoints = this.curMileage.points
-        this.totalPointsSpent += curPointsFromChests
+        let curAvailableMileagePoints = curPointsFromChests + curMileagePoints
         let remainingFromPreviousRounds = this.totalPointsSpent % this.pointsRequiredPerTask
         let r = (curPointsFromChests + remainingFromPreviousRounds) % this.pointsRequiredPerTask
+        this.totalPointsSpent += curPointsFromChests
         let numTasksCompleted = Math.round((curPointsFromChests + remainingFromPreviousRounds - r) / this.pointsRequiredPerTask)
-        if (this.numTasksCompleted + numTasksCompleted > this.maxTasksToComplete){
+        if ((curPointsFromChests + remainingFromPreviousRounds) < this.pointsRequiredPerTask){
+            numTasksCompleted = 0
+        }
+        if ((this.numTasksCompleted + numTasksCompleted) > this.maxTasksToComplete){
             numTasksCompleted = this.maxTasksToComplete - this.numTasksCompleted
         }
-        let curAvailablePoints = curPointsFromChests + curMileagePoints
         this.numTasksCompleted += numTasksCompleted
         this.silverChestsFromRounds += numTasksCompleted * this.rewardsPerTask.silverChests
         this.numChests = {
@@ -178,20 +182,20 @@ export class ChestGrowthManager {
             if (pointsNeeded) {
                 pointsNeeded = parseInt(pointsNeeded)
             }
-            while (curAvailablePoints > pointsNeeded) {
+            while (curAvailableMileagePoints > pointsNeeded) {
                 this.numChests[chest]++
                 this.extraChests[chest]++
                 milestone += 1
                 if (!this.mileage[milestone]) {
                     milestone = 0
                 }
-                curAvailablePoints -= pointsNeeded
+                curAvailableMileagePoints -= pointsNeeded
                 const [curChest, curPointsNeeded] = this.mileage[milestone].split("_")
                 chest = curChest
                 pointsNeeded = parseInt(curPointsNeeded)
             }
             this.curMileage.chestType = this.mileage[milestone]
-            this.curMileage.points = curAvailablePoints
+            this.curMileage.points = curAvailableMileagePoints
         }
     }
 }
