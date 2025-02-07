@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/davonbarnette/yume#readme",
   "dependencies": {
-    "@strapi/sdk-js": "^1.0.0-beta.0",
+    "@strapi/sdk-js": "1.0.0-beta.0",
     "axios": "^1.7.9",
     "case": "^1.6.3",
     "chalk": "^5.2.0",
