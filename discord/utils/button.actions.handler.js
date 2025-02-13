@@ -38,7 +38,7 @@ export class ButtonActionsHandler {
                 let button = new ButtonBuilder()
                     .setCustomId(id)
                     .setLabel(label)
-                    .setStyle(style || "SECONDARY")
+                    .setStyle(style || "Secondary")
                 row.addComponents(button)
             })
             componentRows.push(row)

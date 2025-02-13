@@ -1,10 +1,13 @@
-import {DISCORD_SETTINGS} from "#settings"
+import {availableCollections, DISCORD_SETTINGS} from "#settings"
 import {Client, Events} from "discord.js"
+
 const {DISCORD_TOKEN} = process.env
 import logger from '#logger'
 import {initDiscordCron} from "#root/discord-cron.js";
 import {notify} from "#root/startup-tasks/notify.js";
 import {LocalCache} from "#root/cache.js";
+import {GenstrapiSearch} from "#root/apis/genstrapi/search.js";
+
 export class DiscordConsumer {
 
     constructor(commandsRegistry) {
@@ -23,6 +26,7 @@ export class DiscordConsumer {
     onReady = () => {
         logger.success(`${this.client.user.username} ready!`)
         this.client.user.setActivity(`/help`)
+        this.client.genstrapiCache = new GenstrapiSearch(availableCollections)
         this._localCache = new LocalCache(this.client)
         notify(this.client, this._localCache)
         initDiscordCron(this.client, this._localCache)
@@ -33,7 +37,7 @@ export class DiscordConsumer {
     }
 
     onError = (err) => {
-        logger.error(err);
+        logger.error(JSON.stringify(err));
     }
 
     onInteractionCreate = async (interaction) => {
@@ -41,6 +45,18 @@ export class DiscordConsumer {
             let command = this.client.commands.get(interaction.commandName)
             if (command) {
                 await command.execute(interaction, this.client, interaction.user.id)
+            }
+        } else if (interaction.isAutocomplete()) {
+            const command = this.client.commands.get(interaction.commandName);
+
+            if (!command) {
+                console.error(`No command matching ${interaction.commandName} was found.`);
+                return;
+            }
+            try {
+                await command.autocomplete(interaction, this.client, interaction.user.id);
+            } catch (error) {
+                console.error(error);
             }
         }
     }

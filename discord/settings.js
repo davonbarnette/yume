@@ -18,4 +18,12 @@ export const VALORANT_API_ENDPOINT = process.env.VALORANT_API_ENDPOINT
 export const JIKAN_API_ENDPOINT = process.env.JIKAN_API_ENDPOINT
 export const OPENAI_API_KEY = process.env.OPENAI_API_KEY
 
-
+export const availableCollections = [
+    'equipments',
+    'legacies',
+    'inheritances',
+    'pets',
+    'mounts',
+    'artifacts',
+    'skills',
+]

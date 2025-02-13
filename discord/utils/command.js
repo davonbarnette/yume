@@ -5,6 +5,7 @@ const paramProperties = {
     getSlashCommand: "getSlashCommand",
     disabled: "disabled",
     execute: "execute",
+    autocomplete: "autocomplete",
 }
 
 export class Command {

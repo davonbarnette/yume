@@ -1,3 +1,5 @@
+import {GenstrapiSearch} from "#root/apis/genstrapi/search.js";
+
 export class LocalCache {
     constructor(client) {
         this.guilds = new Map()
